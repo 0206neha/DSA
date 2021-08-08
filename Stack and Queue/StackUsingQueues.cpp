@@ -1,63 +1,91 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-stack<int>s1;
-stack<int>s2;
+queue<int> q1;
+queue<int> q2;
 
 void push(int x)
 {
-    s1.push(x);
+    q1.push(x);
 }
 
 int pop()
 {
-    if(s1.empty() && s2.empty())
-    return -1;
+    if (q1.empty() && q2.empty())
+        return -1;
 
-    while(!s1.empty())
+    while (q1.size() != 1)
     {
-        while(s2.empty())
-        {
-            s2.push(s1.top());
-            s1.pop();
-        }
+        q2.push(q1.front());
+        q1.pop();
     }
 
-    int ans=s2.top();
-    s2.pop();
+    int ans = q1.front();
+    q1.pop();
+    swap(q1, q2);
     return ans;
+
+    //Using 1 queue
+
+    // int n=q1.size();
+    // int count=1;
+
+    // while(count<n)//ie n-count>1
+    // {
+    //     q1.push(q1.front());
+    //     q1.pop();
+    //     count++;
+    // }
+
+    // int ans=q1.front();
+    // q1.pop();
+    // return ans;
 }
 
-int front()
+int top()
 {
-    if(s1.empty() && s2.empty())
-    return -1;
-
-    while(!s1.empty())
+    if (q1.empty())
+        return -1;
+    while (q1.size() != 1)
     {
-        while(s2.empty())
-        {
-            s2.push(s1.top());
-            s1.pop();
-        }
+        q2.push(q1.front());
+        q1.pop();
     }
 
-    int ans=s2.top();
+    int ans = q1.front();
+    q2.push(q1.front());
+    swap(q1, q2);
     return ans;
+
+    // int n=q1.size();
+    // int count=1;
+
+    // while(count<n)//ie n-count>1
+    // {
+    //     q1.push(q1.front());
+    //     q1.pop();
+    //     count++;
+    // }
+
+    // int ans=q1.front();
+    // q1.push(q1.front());
+    // q1.pop();
+    // return ans;
+
 }
 
 int main()
 {
     push(1);
     push(3);
-    cout<<front()<<"";
+    cout << top() <<" ";
     push(4);
-    cout<<pop()<<"";
+    cout << pop() <<" ";
     push(5);
     push(6);
-    cout<<front()<<"";
-    cout<<pop()<<"";
-    cout<<pop()<<"";
-    cout<<front()<<"";
+    cout << top() <<" ";
+    cout << pop() <<" ";
+    cout << pop() <<" ";
+    cout << top() <<" ";
     return 0;
 }

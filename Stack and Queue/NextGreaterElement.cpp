@@ -13,7 +13,7 @@ void Find(vector<int> v)
     
     for (int i = 0; i < v.size(); i++)
     {
-        
+        //7, 2, 4, 6, 81, 11, 4
         while (!s.empty() && v[i] > v[s.top()])
         {
 
